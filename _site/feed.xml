@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="dagonlee.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="dagonlee.github.io/" rel="alternate" type="text/html" /><updated>2021-09-17T15:17:01+09:00</updated><id>dagonlee.github.io/feed.xml</id><title type="html">Dagon’s Devlog</title><subtitle>I'm ML engineer</subtitle><author><name>Dagon Lee</name><email>leedagon624@gmail.com</email></author><entry><title type="html">Introduction to RNN</title><link href="dagonlee.github.io/machinelearning/RNN%EC%86%8C%EA%B0%9C/" rel="alternate" type="text/html" title="Introduction to RNN" /><published>2021-08-28T00:00:00+09:00</published><updated>2021-08-28T00:00:00+09:00</updated><id>dagonlee.github.io/machinelearning/RNN%EC%86%8C%EA%B0%9C</id><content type="html" xml:base="dagonlee.github.io/machinelearning/RNN%EC%86%8C%EA%B0%9C/">&lt;p&gt;RNN에 대한 소개를 하기 앞서 시퀀스 데이터와 등장 배경에 대해서 소개하고자 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;시퀀스-데이터&quot;&gt;시퀀스 데이터&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;순서가 있는 데이터&lt;/li&gt;
+  &lt;li&gt;ex) 단어, 소리, 영상, 주가 등&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;시퀀스-데이터-다루기&quot;&gt;시퀀스 데이터 다루기&lt;/h2&gt;
+
+&lt;p&gt;아래와 같이 조건부확률을 이용하여 시퀀스 데이터를 이용할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;373&quot; alt=&quot;스크린샷_2021-08-05_오후_1 34 10&quot; src=&quot;https://user-images.githubusercontent.com/43575986/131204054-1cb1ac80-32b7-424d-af55-7bc717ef85bd.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Xt-1 ~ X1 까지 발생했을 때 Xt가 발생할 확률&lt;/p&gt;
+
+&lt;p&gt;조건부에 들어가는 데이터의 길이가 가변적이기 때문에 이를 고려해야한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;507&quot; alt=&quot;스크린샷_2021-08-05_오후_1 41 16&quot; src=&quot;https://user-images.githubusercontent.com/43575986/131204056-a3facc05-addb-46fa-a0ae-279ffd41a02f.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;과거의 모든 데이터를 그대로 사용한다면 부담이 되기 때문에 고정된 길이만큼의 데이터를 다루는 모델도 있다(Autoregressive Model, 자기회귀모델)
+&lt;img width=&quot;496&quot; alt=&quot;스크린샷_2021-08-05_오후_1 42 17&quot; src=&quot;https://user-images.githubusercontent.com/43575986/131204058-f43b4016-cbf1-41eb-bd14-c1cd36afb9f1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;다른 방법으로는 과거의 데이터들을 잠재벡터로 연산하여 이용하는 방법이 있다 ⇒ RNN
+&lt;img width=&quot;560&quot; alt=&quot;스크린샷_2021-08-05_오후_1 49 59&quot; src=&quot;https://user-images.githubusercontent.com/43575986/131204059-71eeacf9-652c-462a-a33b-53f4eaf9924f.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;RNN의 기본적인 모형을 보면 아래와 같다.
+&lt;img width=&quot;659&quot; alt=&quot;스크린샷_2021-08-05_오후_2 02 37&quot; src=&quot;https://user-images.githubusercontent.com/43575986/131204061-5d79528f-7cf9-4e1a-a5ca-f3d8bd258904.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;$H_{t}$는 $X_{t + 1}$와 함께 $H_{t+1}$를 연산하는 입력으로 들어간다. 과거의 데이터가 현재에 영향을 주는 모델이다.&lt;/p&gt;
+
+&lt;p&gt;수식으로 나타내면 다음과 같다.
+&lt;img width=&quot;365&quot; alt=&quot;스크린샷_2021-08-05_오후_2 12 43&quot; src=&quot;https://user-images.githubusercontent.com/43575986/131204062-fb52045f-8f4e-46ac-b1d4-7269b44c6f20.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;과거의 연산결과인 $H_{t-1}$, $X_t$ 가 각각의 가중치와 연산되어 $H_t$를 만드는 요소가 되고 연산된 $H_t$는 또 다른 가중치와 연산되어 ouput인 $O_t$를 반환한다. 3개의 가중치를 가지고 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;bpttback-propagation-through-time&quot;&gt;BPTT(Back Propagation Through Time)&lt;/h2&gt;
+
+&lt;p&gt;RNN의 Back Propagation은 시간의 흐름 대로  RNN에 적용되는 BPTT방법을 이용하여 Back Propagation을 진행한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;884&quot; alt=&quot;스크린샷_2021-08-05_오후_6 41 41&quot; src=&quot;https://user-images.githubusercontent.com/43575986/131204063-3c5d2dd0-2bed-4e60-ac92-824f33e53288.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;시퀀스의 길이가 길어질수록 gradient가 증강 되거나 소실 될 수 있다.
+
+⇒ truncated bptt(길이를 제한하여 bptt 진행)
+
+⇒ LSTM, GRU라는 대안도 존재
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Dagon Lee</name><email>leedagon624@gmail.com</email></author><category term="MachineLearning" /><summary type="html">RNN에 대한 소개를 하기 앞서 시퀀스 데이터와 등장 배경에 대해서 소개하고자 한다. 시퀀스 데이터</summary></entry><entry><title type="html">Keras vs Tensorflow vs Pytorch</title><link href="dagonlee.github.io/deeplearning/keras,Tensorflow,Pytorch/" rel="alternate" type="text/html" title="Keras vs Tensorflow vs Pytorch" /><published>2021-08-28T00:00:00+09:00</published><updated>2021-08-28T00:00:00+09:00</updated><id>dagonlee.github.io/deeplearning/keras,Tensorflow,Pytorch</id><content type="html" xml:base="dagonlee.github.io/deeplearning/keras,Tensorflow,Pytorch/">&lt;h2 id=&quot;keras&quot;&gt;Keras&lt;/h2&gt;
+
+&lt;p&gt;Tensorflow, Theano, MXNet 등 딥러닝 프레임워크 위에서 동작하는 High-level API로 사용자 친화적으로 개발되어 있기 때문에 비교적 간단한 신경망을 구축할 때 혹은 빠른 시간 내에 테스트를 해야만하는 경우 좋은 선택이 될 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;하지만 Tensorflow, Pytorch에서와 같은 디테일한 조작이 불가능하다는 단점이 있습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;pytorch-vs-tensorflow&quot;&gt;Pytorch VS Tensorflow&lt;/h2&gt;
+
+&lt;p&gt;두 프레임워크 모두 low-level api로 대표적인 딥러닝 프레임워크입니다.&lt;/p&gt;
+
+&lt;p&gt;두 프레임워크의 대표적인 차이점은 computation graph를 생성하는 방법의 차이입니다.&lt;/p&gt;
+
+&lt;p&gt;Tensorflow의 경우 static computation graph 방식을 사용하여 그래프를 먼저 정의하고 실행하는 define and run 형태의 실행이 이루어집니다.&lt;/p&gt;
+
+&lt;p&gt;반면 PyTorch는 dynamic computation graph방식을 사용하여 define by run 형태의 실행이 이루어집니다.&lt;/p&gt;
+
+&lt;p&gt;define by run 방식으로 모델의 흐름을 동적으로 제어할 수 있다는 장점은 debugging을 용이하게하여 연구 및 개발에 효과적이고 실제로 Pytorch로 쓰여지는 논문이 Tensorflow보다 많습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;Keras,%20Tensorflow,%20Pytorch%20de76d79a166f4bb8a83ab21d92701953/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-08-17_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_10.42.35.png&quot; alt=&quot;스크린샷 2021-08-17 오후 10.42.35.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;reference&quot;&gt;Reference&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.imaginarycloud.com/blog/pytorch-vs-tensorflow/&quot;&gt;www.imaginarycloud.com/blog/pytorch-vs-tensorflow/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://smilegate.ai/2021/07/05/tensorflow-vs-pytorch/&quot;&gt;https://smilegate.ai/2021/07/05/tensorflow-vs-pytorch/&lt;/a&gt;&lt;/p&gt;</content><author><name>Dagon Lee</name><email>leedagon624@gmail.com</email></author><category term="Deeplearning" /><summary type="html">Keras</summary></entry></feed>

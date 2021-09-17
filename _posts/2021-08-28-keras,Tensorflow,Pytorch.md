@@ -1,7 +1,7 @@
 ---
 title: "Keras vs Tensorflow vs Pytorch"
 categories: 
-  - MachineLearning
+  - Deeplearning
 last_modified_at: 2021-08-28
 toc: true
 ---

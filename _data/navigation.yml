@@ -14,3 +14,9 @@ main:
   #   url: /collection-archive/
   # - title: "Sitemap"
   #   url: /sitemap/:
+
+docs:
+  - title: TIL
+    children:
+    - title: "test"
+      url: /docs/test/

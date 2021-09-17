@@ -1,0 +1,49 @@
+<p>RNN에 대한 소개를 하기 앞서 시퀀스 데이터와 등장 배경에 대해서 소개하고자 한다.</p>
+
+<h2 id="시퀀스-데이터">시퀀스 데이터</h2>
+
+<ul>
+  <li>순서가 있는 데이터</li>
+  <li>ex) 단어, 소리, 영상, 주가 등</li>
+</ul>
+
+<h2 id="시퀀스-데이터-다루기">시퀀스 데이터 다루기</h2>
+
+<p>아래와 같이 조건부확률을 이용하여 시퀀스 데이터를 이용할 수 있다.</p>
+
+<p><img width="373" alt="스크린샷_2021-08-05_오후_1 34 10" src="https://user-images.githubusercontent.com/43575986/131204054-1cb1ac80-32b7-424d-af55-7bc717ef85bd.png" /></p>
+
+<p>Xt-1 ~ X1 까지 발생했을 때 Xt가 발생할 확률</p>
+
+<p>조건부에 들어가는 데이터의 길이가 가변적이기 때문에 이를 고려해야한다.</p>
+
+<p><img width="507" alt="스크린샷_2021-08-05_오후_1 41 16" src="https://user-images.githubusercontent.com/43575986/131204056-a3facc05-addb-46fa-a0ae-279ffd41a02f.png" /></p>
+
+<p>과거의 모든 데이터를 그대로 사용한다면 부담이 되기 때문에 고정된 길이만큼의 데이터를 다루는 모델도 있다(Autoregressive Model, 자기회귀모델)
+<img width="496" alt="스크린샷_2021-08-05_오후_1 42 17" src="https://user-images.githubusercontent.com/43575986/131204058-f43b4016-cbf1-41eb-bd14-c1cd36afb9f1.png" /></p>
+
+<p>다른 방법으로는 과거의 데이터들을 잠재벡터로 연산하여 이용하는 방법이 있다 ⇒ RNN
+<img width="560" alt="스크린샷_2021-08-05_오후_1 49 59" src="https://user-images.githubusercontent.com/43575986/131204059-71eeacf9-652c-462a-a33b-53f4eaf9924f.png" /></p>
+
+<p>RNN의 기본적인 모형을 보면 아래와 같다.
+<img width="659" alt="스크린샷_2021-08-05_오후_2 02 37" src="https://user-images.githubusercontent.com/43575986/131204061-5d79528f-7cf9-4e1a-a5ca-f3d8bd258904.png" /></p>
+
+<p>$H_{t}$는 $X_{t + 1}$와 함께 $H_{t+1}$를 연산하는 입력으로 들어간다. 과거의 데이터가 현재에 영향을 주는 모델이다.</p>
+
+<p>수식으로 나타내면 다음과 같다.
+<img width="365" alt="스크린샷_2021-08-05_오후_2 12 43" src="https://user-images.githubusercontent.com/43575986/131204062-fb52045f-8f4e-46ac-b1d4-7269b44c6f20.png" /></p>
+
+<p>과거의 연산결과인 $H_{t-1}$, $X_t$ 가 각각의 가중치와 연산되어 $H_t$를 만드는 요소가 되고 연산된 $H_t$는 또 다른 가중치와 연산되어 ouput인 $O_t$를 반환한다. 3개의 가중치를 가지고 있다.</p>
+
+<h2 id="bpttback-propagation-through-time">BPTT(Back Propagation Through Time)</h2>
+
+<p>RNN의 Back Propagation은 시간의 흐름 대로  RNN에 적용되는 BPTT방법을 이용하여 Back Propagation을 진행한다.</p>
+
+<p><img width="884" alt="스크린샷_2021-08-05_오후_6 41 41" src="https://user-images.githubusercontent.com/43575986/131204063-3c5d2dd0-2bed-4e60-ac92-824f33e53288.png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>시퀀스의 길이가 길어질수록 gradient가 증강 되거나 소실 될 수 있다.
+
+⇒ truncated bptt(길이를 제한하여 bptt 진행)
+
+⇒ LSTM, GRU라는 대안도 존재
+</code></pre></div></div>
